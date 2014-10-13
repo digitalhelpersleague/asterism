@@ -1,0 +1,36 @@
+doctype 5
+html
+  head
+    title = yield(:title).presence || Rails.application.class.parent_name
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    meta http-equiv="keywords" content=""
+    meta http-equiv="description" content=""
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    meta name="title" content="#{ yield(:title).presence || Rails.application.class.parent_name }"
+    link rel="icon" type="image/png" sizes="16x16" href="/favicon_16.png"
+    /link rel="icon" type="image/png" sizes="32x32" href="/favicon_32.png"
+    /link rel="icon" type="image/png" sizes="64x64" href="/favicon_64.png"
+    link rel="apple-touch-icon" href="/favicon_64.png"
+
+    = stylesheet_link_tag    "application", media: "all"
+    = include_gon
+    = csrf_meta_tags
+    = javascript_include_tag "application"
+
+  body ng-app='rism' class="#{controller_name}-#{action_name}"
+    .wrapper ng-controller='rism.MainCtrl'
+      .content-container
+        = render partial: 'layouts/header'
+        .content-inner
+          /- unless current_user.member?
+            /= render partial: 'shared/sign_in'
+          /- if controller_name == 'pages'
+            /div style="display: none"
+              /= render_flash_messages
+          /- else
+            /= render_flash_messages
+          == yield
+      div style='clear: both;'
+      .push
+    = render partial: 'layouts/footer'

@@ -95,6 +95,7 @@ GEM
     has_scope (0.6.0.rc)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
+    hashie (3.3.1)
     hike (1.2.3)
     htmlentities (4.3.2)
     i18n (0.6.11)
@@ -212,6 +213,12 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sequel (4.15.0)
+    sequel-rails (0.9.5)
+      actionpack (>= 3.2.0)
+      activemodel
+      railties (>= 3.2.0)
+      sequel (>= 3.28, < 5.0)
     slim (2.0.3)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -269,6 +276,7 @@ DEPENDENCIES
   draper
   execjs
   gon
+  hashie
   inherited_resources
   jquery-rails
   letter_opener
@@ -293,6 +301,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 4.0)
   sdoc
+  sequel-rails
   slim-rails
   thin
   uglifier (>= 1.3.0)

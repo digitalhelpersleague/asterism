@@ -1,7 +1,23 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+
+ExtensionAttribute.create(
+  { name: 'dnd',
+    value_type: 'integer',
+    default_value: '0'
+  },
+  { name: 'busytime',
+    value_type: 'integer',
+    default_value: '60'
+  },
+  { name: 'allowmetransfer',
+    value_type: 'string',
+    default_value: 't'
+  },
+  { name: 'allowhimtransfer',
+    value_type: 'string',
+    default_value: 't'
+  },
+  { name: 'greeting',
+    value_type: 'integer',
+    default_value: '0'
+  }
+)

@@ -1,0 +1,16 @@
+defaults: &defaults
+  host: 'asterism.local'
+  mail:
+    from: robot@localhost
+    admin: root@localhost
+  uploads:
+    secret_key: put_very_long_random_string_here
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

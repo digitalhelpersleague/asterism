@@ -3,6 +3,7 @@ source 'https://rails-assets.org'
 
 gem 'rails', '~> 4.0'
 gem 'pg'
+gem 'sequel-rails'
 gem 'inherited_resources'
 gem 'paperclip'
 gem 'pry-rails'
@@ -13,7 +14,6 @@ gem 'draper'
 
 gem 'premailer-rails'
 gem 'autoprefixer-rails'
-
 gem 'bourbon'
 
 gem 'slim-rails'
@@ -26,6 +26,7 @@ group :assets do
   gem 'uglifier', '>= 1.3.0'
 end
 
+gem 'hashie'
 gem 'gon'
 gem 'oj'
 

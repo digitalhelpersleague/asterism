@@ -1,0 +1,2 @@
+class ExtensionDecorator < ApplicationDecorator
+end

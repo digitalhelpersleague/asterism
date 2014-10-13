@@ -1,0 +1,19 @@
+form action='/sips' method='POST'
+  input name='_method' value='PUT'
+
+  .form-group
+    input.form-control type='text' placeholder='Number'
+  .form-group
+    input.form-control type='text' placeholder='Secret'
+  .form-group
+    input.form-control type='text' placeholder='Dnd'
+  .form-group
+    input.form-control type='text' placeholder='Ringgroup'
+  .form-group
+    input.form-control type='text' placeholder='Allowhimtransfer'
+  .form-group
+    input.form-control type='text' placeholder='Allowmetransfer'
+
+  // number,secret,dnd,ringgroup,busytime,allowmetransfer,allowhimtransfer,greeting
+  // dnd=0,busytime=60,allowmetransfer=t,allowhimtransfer=T,greeting=0,ringroup=Local/{number1}@{name}&Local/{number2}@{name}
+

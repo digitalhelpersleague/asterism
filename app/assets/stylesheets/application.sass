@@ -1,0 +1,57 @@
+@import 'variables'
+@import 'bootstrap_and_overrides'
+
+//@import 'fonts'
+@import 'animations'
+//@import 'sign_in'
+
+@import 'layout'
+//@import 'uploads'
+//@import 'passwords'
+
+.btn-transparent
+  background-color: transparent
+  color: $gray-lighter
+  &:hover
+    background-color: rgba(255,255,255,0.1) !important
+    color: $gray-lighter
+  &:focus
+    color: $gray-lighter !important
+    background-color: rgba(255,255,255,0.1) !important
+    outline: 0 !important
+  &:active, &.active
+    color: $gray-darker !important
+    background-color: rgba(255, 255, 255, 0.4) !important
+
+button.navbar-toggle
+  & > span.icon-bar
+    background: rgba(255, 255, 255, 0.4)
+
+.syntax pre
+  text-align: left
+  font-size: 12px
+  text-shadow: none
+
+.form-group
+  .btn + .btn
+    margin-left: 10px
+
+form
+  max-width: $form-width
+  margin-left: auto
+  margin-right: auto
+  label
+    font-weight: 300
+
+  .form-group
+    label + label
+      margin-left: 15px
+
+.tab-content
+  text-align: center
+
+.request-invitation
+  padding: 10px 0
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control
+  background-color: #D1D1D1

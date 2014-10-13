@@ -1,0 +1,15 @@
+div ng-controller='rism.SipsCtrl'
+  table.table ng-show='sips.length'
+    thead
+      tr
+        th
+        th
+        th
+
+    tbody ng-cloak=true
+      tr ng-repeat='sip in sips track by sip.id'
+        td
+        td
+        td
+
+  a.btn.btn-primary.btn-lg href='javascript:;' ng-click='new_sip()' New Sip
