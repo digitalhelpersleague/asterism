@@ -1,5 +1,4 @@
 class SipsController < ApplicationController
-  respond_to :html, :json
   helper_method :sip, :sips
 
   def show

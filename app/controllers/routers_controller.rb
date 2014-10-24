@@ -1,5 +1,4 @@
 class RoutersController < ApplicationController
-  respond_to :json, :html
   helper_method :routers, :router
 
   def show

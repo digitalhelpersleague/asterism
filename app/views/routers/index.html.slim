@@ -1,5 +1,5 @@
 div ng-controller='rism.RoutersCtrl'
-  .routers-list ng-hide='router'
+  .routers-list ng-hide='router' ng-cloak=true
     h4.section-title Routers
     = form_tag routers_path, class: 'form-inline filter-form maximize' do
       .row
@@ -12,7 +12,7 @@ div ng-controller='rism.RoutersCtrl'
                   span.glyphicon.glyphicon-remove.no-shadow
     p ng-if='!routers.length' No routers found
     table.table ng-show='routers.length'
-      tbody ng-cloak=true
+      tbody
         tr ng-repeat='router in routers track by router.id'
           td.maximize ng-bind-html="router.context | highlightPhrase:q"
           td.actions

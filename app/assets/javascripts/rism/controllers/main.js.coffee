@@ -2,6 +2,7 @@
   #$scope.current_user = data.current_user
 
   $scope.generate_secret = (selector) ->
+    $scope.zxcvbn = undefined
     safe_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-~@%&*+'
     password = _.sample(_.shuffle(safe_chars.split('')), _.random(8,12)).join('')
     field = angular.element(selector)

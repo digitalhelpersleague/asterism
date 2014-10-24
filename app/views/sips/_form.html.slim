@@ -1,4 +1,4 @@
-.sip-form ng-show='sip'
+.sip-form ng-show='sip' ng-cloak='true'
   h4.section-title ng-if='sip.id'
     | Edit SIP client {{ sip.context }}
   h4.section-title ng-if='!sip.id' New SIP client
@@ -17,6 +17,7 @@
 
     .form-group.has-feedback
       label.col-sm-4.control-label Password
+      | {{ zxcvbn }}
       .col-sm-8
         .input-group
           input.left-radius.right-radius.form-control.password-field type='{{ !unmasked_password && "password" || "text" }}' name='sip[secret]' placeholder='Password' autocomplete='off' zxcvbn='zxcvbn' class='password-score_{{ zxcvbn.score }}' ng-model='sip.secret'

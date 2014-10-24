@@ -1,10 +1,9 @@
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
-gem 'rails', '~> 4.0'
+gem 'rails', '~> 4.2.0.beta2'
 gem 'pg'
 gem 'sequel-rails'
-gem 'inherited_resources'
 gem 'paperclip'
 gem 'pry-rails'
 
@@ -17,7 +16,7 @@ gem 'autoprefixer-rails'
 gem 'bourbon'
 
 gem 'slim-rails'
-gem 'sass-rails', '~> 4.0'
+gem 'sass-rails', '~> 5.0.0.beta1'
 gem 'coffee-rails', '~> 4.0'
 gem 'rabl-rails', github: 'ccocchi/rabl-rails'
 

@@ -7,16 +7,8 @@ RSpec.describe SipsController, :type => :routing do
       expect(:get => "/sips").to route_to("sips#index")
     end
 
-    it "routes to #new" do
-      expect(:get => "/sips/new").to route_to("sips#new")
-    end
-
     it "routes to #show" do
       expect(:get => "/sips/1").to route_to("sips#show", :id => "1")
-    end
-
-    it "routes to #edit" do
-      expect(:get => "/sips/1/edit").to route_to("sips#edit", :id => "1")
     end
 
     it "routes to #create" do

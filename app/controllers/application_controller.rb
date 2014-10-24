@@ -14,12 +14,13 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.json do
         if resource.errors.any?
-          return render( json: { error: resource.errors.messages.map do |k, v|
-                                          "#{ k } #{ v.join(', ') }"
-                                        end.join('; ')
-                               },
-                         status: 403
-                       )
+          return render(json:
+            { error: resource.errors.messages.map do |k, v|
+                "#{ k } #{ v.join(', ') }"
+              end.join('; ')
+            },
+            status: 403
+            )
         end
         render :show
       end

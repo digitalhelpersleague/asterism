@@ -1,5 +1,5 @@
 div ng-controller='rism.SipsCtrl'
-  .sips-list ng-hide='sip'
+  .sips-list ng-hide='sip' ng-cloak=true
     h4.section-title SIP clients
     p ng-if='!sips.length' No SIP clients found
     table.table ng-show='sips.length'
@@ -9,7 +9,7 @@ div ng-controller='rism.SipsCtrl'
           th
           th
 
-      tbody ng-cloak=true
+      tbody
         tr ng-repeat='sip in sips track by sip.id'
           td
           td
