@@ -19,7 +19,7 @@ gem 'bourbon'
 gem 'slim-rails'
 gem 'sass-rails', '~> 4.0'
 gem 'coffee-rails', '~> 4.0'
-gem 'rabl-rails'
+gem 'rabl-rails', github: 'ccocchi/rabl-rails'
 
 group :assets do
   gem 'execjs', platforms: :ruby
@@ -48,6 +48,7 @@ gem 'rails-assets-angular'
 gem 'rails-assets-angular-animate'
 gem 'rails-assets-angular-resource'
 gem 'rails-assets-angular-sanitize'
+gem 'rails-assets-angular-bindonce'
 gem 'rails-assets-bootstrap-sass-official'
 gem 'rails-assets-moment'
 gem 'rails-assets-angular-moment'
@@ -60,13 +61,16 @@ end
 
 group :development do
   gem 'thin'
-  gem 'capistrano-rails'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rbenv', require: false
+  gem 'slackistrano', require: false
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rack-mini-profiler'
   gem 'quiet_assets'
   gem 'letter_opener'
 end
+
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-

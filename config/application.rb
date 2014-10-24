@@ -26,10 +26,16 @@ module Asterism
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    config.sequel.schema_format = :ruby
 
     config.autoload_paths << Rails.root.join('lib')
+
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
+
+    # Sequel configurations
+    config.sequel.schema_format = :ruby
+    config.sequel.after_connect = proc do
+      Sequel::Model.plugin :validation_helpers
+    end
   end
 end

@@ -1,2 +1,0 @@
-class SipDecorator < ApplicationDecorator
-end

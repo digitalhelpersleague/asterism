@@ -6,9 +6,13 @@
     sip.$delete().then ->
       $scope.sips = _.without $scope.sips, sip
 
-  #new_sip = ->
-    #sip = Sip.new()
-    #sip.edit = true
-    #$scope.sips.push(sip)
+  $scope.edit = (sip) ->
+    $scope.sip = angular.copy(sip)
+
+  $scope.cancel = ->
+    $scope.sip = undefined
+
+  $scope.new = ->
+    $scope.sip = new Sip({})
 
 ]

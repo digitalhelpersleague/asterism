@@ -1,0 +1,52 @@
+.sip-form ng-show='sip'
+  h4.section-title ng-if='sip.id'
+    | Edit SIP client {{ sip.context }}
+  h4.section-title ng-if='!sip.id' New SIP client
+  = form_tag sips_path, method: :put, class: 'form-horizontal', role: 'form' do
+    .form-group
+      label.col-sm-4.control-label CallerID
+      .col-sm-8
+        input.form-control type='text' name='sip[callerid]' placeholder='Jessica the Sales Manager' autofocus='true' autocomplete='on' ng-model='sip.callerid'
+    .form-group
+      label.col-sm-4.control-label Channel
+      .col-sm-8
+        select.form-control name='sip[channel]' ng-model='sip.channel'
+          option value='sip' selected='selected' SIP
+          option value='iax' IAX
+          option value='dahdi' DAHDI
+
+    .form-group.has-feedback
+      label.col-sm-4.control-label Password
+      .col-sm-8
+        .input-group
+          input.left-radius.right-radius.form-control.password-field type='{{ !unmasked_password && "password" || "text" }}' name='sip[secret]' placeholder='Password' autocomplete='off' zxcvbn='zxcvbn' class='password-score_{{ zxcvbn.score }}' ng-model='sip.secret'
+          a.form-control-feedback.show-password-toggle ng-click='unmasked_password=!unmasked_password'
+            span.glyphicon.glyphicon-eye-open.no-shadow
+        .progress.password-score-bar ng-show='zxcvbn' class='password-score_{{ zxcvbn.score }}'
+          .progress-bar role='progressbar' aria-valuenow='{{ zxcvbn.score + 1 }}' aria-valuemin='0' aria-valuemax='5' style='width: {{ (zxcvbn.score + 1) / 5 * 100 }}%;'
+        .password-crack-time.tooltip.bottom role='tooltip' ng-show='zxcvbn'
+          .tooltip-arrow
+          .tooltip-inner Estimated crack time: {{ zxcvbn.crack_time_display }}
+    .form-group
+      .col-sm-8.col-sm-offset-4
+        a.btn.btn-success.btn-xs href='javascript:;' ng-click='generate_secret(".password-field")' Generate password
+
+    .form-group
+      label.col-sm-4.control-label Phone number
+      .col-sm-8
+        input.form-control type='text' name='sip[phone_number]' placeholder='1234' autocomplete='on' ng-model='sip.phone'
+
+    .form-group.disabled
+      label.col-sm-4.control-label E-mail
+      .col-sm-8
+        input.form-control disabled='disabled' type='text' name='sip[email]' placeholder='jessica@example.com' autocomplete='on' ng-model='sip.email'
+
+    .form-group.disabled
+      .col-sm-8.col-sm-offset-4
+        .checkbox
+          label : input disabled='disabled' type='checkbox' Send password to email
+
+    .form-group
+      a.btn.btn-primary.btn-lg href='javascript:;' ng-click='create()' ng-if='!sip.id' Create
+      a.btn.btn-primary.btn-lg href='javascript:;' ng-click='update()' ng-if='sip.id' Save
+      a.btn.btn-lg ng-click='cancel()' Cancel

@@ -5,6 +5,9 @@ module ApplicationHelper
     'active'
   end
 
+  alias_method :menu_active?, :header_active?
+
+
   def render_flash_messages
     s = ''
     flash.each do |k, v|

@@ -1,2 +1,2 @@
-collection :sips, root: false
-attributes :id, :name
+collection :sips
+attributes :id

@@ -1,0 +1,37 @@
+.router-form ng-show='router'
+  h4.section-title ng-if='router.id'
+    | Edit router {{ router.context }}
+  h4.section-title ng-if='!router.id' New router
+  = form_tag routers_path, method: :put, class: 'form-horizontal', role: 'form' do
+    .form-group
+      label.col-sm-4.control-label Name
+      .col-sm-8
+        input.form-control type='text' name='router[context]' autofocus='true' placeholder='Name' autocomplete="on" ng-model='router.context'
+
+    .form-group
+      .col-sm-4 Routes
+      .col-sm-8
+        .col-sm-6
+          h4 Internal
+          .routes ng-repeat='route in router.routes'
+            .form-group
+              .input-group.input-group-sm
+                input.form-control type='text' name='router[route][][exten]' placeholder='XXXX' autocomplete="on" ng-model='route.exten'
+                span.input-group-btn
+                  a.btn.btn-icon.btn-danger ng-click='router.remove_route(route)'
+                    span.glyphicon.glyphicon-remove
+          .form-group
+            a href='javascript:;' ng-click='router.add_route()'
+              span.glyphicon.glyphicon-plus-sign
+              |  Add route
+
+        .col-sm-6
+          h4 External
+          .form-group
+            a href='javascript:;' ng-disabled='true'
+              span.glyphicon.glyphicon-plus-sign
+              |  Add route
+    .form-group
+      a.btn.btn-primary.btn-lg href='javascript:;' ng-click='create()' ng-if='!router.id' Create
+      a.btn.btn-primary.btn-lg href='javascript:;' ng-click='update()' ng-if='router.id' Save
+      a.btn.btn-lg ng-click='cancel()' Cancel

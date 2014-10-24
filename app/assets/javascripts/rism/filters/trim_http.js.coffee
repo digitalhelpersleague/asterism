@@ -1,3 +1,3 @@
-@zum.filter 'trimHttp', -> (text) ->
+@rism.filter 'trimHttp', -> (text) ->
   return if !text
   text.replace(/https?:\/\//, "")

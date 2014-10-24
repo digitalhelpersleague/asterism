@@ -1,12 +1,5 @@
 Sequel.migration do
   change do
-    create_table(:extension_attributes) do
-      primary_key :id
-      column :name, "text"
-      column :value_type, "text"
-      column :default_value, "text"
-    end
-    
     create_table(:extensions) do
       primary_key :id
       column :context, "text", :null=>false
@@ -98,6 +91,5 @@ Sequel.migration do
   change do
     self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20141011163947_create_extensions.rb')"
     self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20141011164638_create_sips.rb')"
-    self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20141013064014_create_extension_attributes.rb')"
   end
 end

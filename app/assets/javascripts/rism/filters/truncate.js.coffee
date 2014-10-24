@@ -1,4 +1,4 @@
-@zum.filter 'truncate', -> (text, length=17, keep_extension=true) ->
+@rism.filter 'truncate', -> (text, length=17, keep_extension=true) ->
   if text and text.length > length
     truncated = text.substring 0, length
     truncated = truncated + "..."if truncated.length < text.length-8

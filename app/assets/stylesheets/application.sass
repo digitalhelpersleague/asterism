@@ -1,13 +1,15 @@
 @import 'variables'
 @import 'bootstrap_and_overrides'
 
-//@import 'fonts'
+@import 'mixins'
 @import 'animations'
-//@import 'sign_in'
-
 @import 'layout'
+@import 'sidebar'
+@import 'passwords'
+
+//@import 'fonts'
+//@import 'sign_in'
 //@import 'uploads'
-//@import 'passwords'
 
 .btn-transparent
   background-color: transparent
@@ -36,6 +38,9 @@ button.navbar-toggle
   .btn + .btn
     margin-left: 10px
 
+.input-group
+  width: 100%
+
 form
   max-width: $form-width
   margin-left: auto
@@ -46,6 +51,13 @@ form
   .form-group
     label + label
       margin-left: 15px
+
+  &.maximize
+    max-width: 100%
+
+  &.filter-form
+    .form-group
+      margin-bottom: 15px
 
 .tab-content
   text-align: center

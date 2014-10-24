@@ -1,4 +1,4 @@
-@zum.filter 'humanizeSize', -> (size, precision) ->
+@rism.filter 'humanizeSize', -> (size, precision) ->
   return if !size?
   if !precision? or precision == 0 or precision == null
     precision = 1
@@ -11,5 +11,5 @@
   while( size >= 1024 )
     suffix++
     size = size / 1024
-  
+
   return size.toFixed(precision) + " " + sizes[suffix]

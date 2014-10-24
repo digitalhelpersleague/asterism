@@ -8,7 +8,7 @@ html
     meta http-equiv="description" content=""
     meta name="viewport" content="width=device-width, initial-scale=1.0"
     meta name="title" content="#{ yield(:title).presence || Rails.application.class.parent_name }"
-    link rel="icon" type="image/png" sizes="16x16" href="/favicon_16.png"
+    link rel="icon" type="image/png" sizes="32x32" href="/favicon_32.png"
     /link rel="icon" type="image/png" sizes="32x32" href="/favicon_32.png"
     /link rel="icon" type="image/png" sizes="64x64" href="/favicon_64.png"
     link rel="apple-touch-icon" href="/favicon_64.png"
@@ -23,14 +23,17 @@ html
       .content-container
         = render partial: 'layouts/header'
         .content-inner
-          /- unless current_user.member?
-            /= render partial: 'shared/sign_in'
-          /- if controller_name == 'pages'
-            /div style="display: none"
+          .col-md-9
+            /- unless current_user.member?
+              /= render partial: 'shared/sign_in'
+            /- if controller_name == 'pages'
+              /div style="display: none"
+                /= render_flash_messages
+            /- else
               /= render_flash_messages
-          /- else
-            /= render_flash_messages
-          == yield
+            == yield
+          .col-md-3
+            = render partial: 'layouts/menu'
       div style='clear: both;'
       .push
     = render partial: 'layouts/footer'

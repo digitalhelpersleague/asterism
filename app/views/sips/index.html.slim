@@ -1,15 +1,22 @@
 div ng-controller='rism.SipsCtrl'
-  table.table ng-show='sips.length'
-    thead
-      tr
-        th
-        th
-        th
+  .sips-list ng-hide='sip'
+    h4.section-title SIP clients
+    p ng-if='!sips.length' No SIP clients found
+    table.table ng-show='sips.length'
+      thead
+        tr
+          th
+          th
+          th
 
-    tbody ng-cloak=true
-      tr ng-repeat='sip in sips track by sip.id'
-        td
-        td
-        td
+      tbody ng-cloak=true
+        tr ng-repeat='sip in sips track by sip.id'
+          td
+          td
+          td
+    a.shadow href='/sips#new' ng-click='new()'
+      span.glyphicon.glyphicon-plus-sign
+      |  New SIP client
+  = render partial: 'form'
 
-  a.btn.btn-primary.btn-lg href='javascript:;' ng-click='new_sip()' New Sip
+script type="text/javascript" src="/js/zxcvbn-async.js"
