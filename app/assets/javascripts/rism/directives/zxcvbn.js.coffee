@@ -1,8 +1,8 @@
-@rism.directive 'zxcvbn', ->
+@rism.directive 'ngZxcvbn', ->
   restrict: 'A'
   scope:
-    zxcvbn: '=',
+    ngZxcvbn: '=',
   link: (scope, element, attributes) ->
     element.bind 'input', (changeEvent) ->
       scope.$apply ->
-        scope.zxcvbn = if $(element).val() then zxcvbn($(element).val()) else null
+        scope.ngZxcvbn = if $(element).val() then zxcvbn($(element).val()) else null

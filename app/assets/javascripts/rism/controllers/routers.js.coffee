@@ -1,5 +1,12 @@
 @rism.controller "rism.RoutersCtrl", ["$scope", "Router", ($scope, Router) ->
 
+  $scope.$on '$locationChangeSuccess', ->
+    switch $scope.location.path()
+      when '/new'
+        $scope.new()
+      when '/'
+        $scope.cancel()
+
   $scope.routers = Router.all()
 
   $scope.destroy = (router) ->
@@ -24,10 +31,6 @@
     return false
 
   $scope.create = ->
-    $scope.router.exten = 's'
-    $scope.router.priority = 1
-    $scope.router.app = 'NoOp'
-    $scope.router.appdata = 'ROUTER'
     $scope.router.$save().then ->
       $scope.routers.push($scope.router)
       $scope.cancel()
@@ -37,11 +40,8 @@
   $scope.update = ->
     $scope.router.$update().then ->
       index = _.findIndex($scope.routers, { id: $scope.router.id })
-      console.log index
       $scope.routers[index] = $scope.router
-      console.log $scope.router
       $scope.cancel()
     , (error) ->
       router.error = error.data.error
-
 ]

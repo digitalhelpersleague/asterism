@@ -1,19 +1,18 @@
 class SipsController < ApplicationController
   helper_method :sip, :sips
 
-  def show
-    respond_to do |format|
-      format.json
-    end
-  end
-
   def index
-    @sips = Sip.all
     respond_to do |format|
       format.json
       format.html do
         gon.rabl template: 'app/views/sips/index.rabl', as: :sips
       end
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.json
     end
   end
 
@@ -55,6 +54,8 @@ class SipsController < ApplicationController
   private
 
   def sip_params
-    params.require(:sip).permit(:context, :exten, :priority, :app, :appdata)
+    params.require(:sip).permit(:callerid, :context, :name, :secret,
+                                :dtmfmode, #:channel,
+                                :number, :permit, :deny, :allow, :'call-limit')
   end
 end

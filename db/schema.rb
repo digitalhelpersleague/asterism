@@ -8,13 +8,13 @@ Sequel.migration do
       column :app, "text", :default=>"", :null=>false
       column :appdata, "text", :default=>"", :null=>false
     end
-    
+
     create_table(:schema_migrations) do
       column :filename, "text", :null=>false
-      
+
       primary_key [:filename]
     end
-    
+
     create_table(:sip) do
       primary_key :id
       column :accountcode, "text"
@@ -82,7 +82,8 @@ Sequel.migration do
       column :useragent, "text"
       column :regserver, "text"
       column :callbackextension, "text"
-      
+      column :number, "text"
+
       index [:name], :unique=>true
     end
   end
@@ -91,5 +92,6 @@ Sequel.migration do
   change do
     self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20141011163947_create_extensions.rb')"
     self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20141011164638_create_sips.rb')"
+    self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20141026114340_add_number_to_sip.rb')"
   end
 end

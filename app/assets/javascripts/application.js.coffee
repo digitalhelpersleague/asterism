@@ -26,5 +26,8 @@
 @rism = angular.module 'rism', ['ngResource', 'ng-rails-csrf', 'ngSanitize', 'angularMoment', 'ngAnimate', 'pasvaz.bindonce']
 @rism.value 'data', window.gon
 
+@rism.config ($locationProvider) ->
+  $locationProvider.html5Mode(false)
+
 $ ->
   $('.alert-dismissible[role="alert"]').delay(12000).fadeOut('slow')

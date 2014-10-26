@@ -34,6 +34,7 @@ group :doc do
 end
 
 gem 'rspec-rails'
+gem 'factory_girl_rails'
 
 # gem 'spring',        group: :development
 
@@ -66,8 +67,8 @@ group :development do
   gem 'slackistrano', require: false
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'rack-mini-profiler'
-  gem 'quiet_assets'
+  # gem 'rack-mini-profiler'
+  # gem 'quiet_assets'
   gem 'letter_opener'
 end
 

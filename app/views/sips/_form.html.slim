@@ -4,38 +4,68 @@
   h4.section-title ng-if='!sip.id' New SIP client
   = form_tag sips_path, method: :put, class: 'form-horizontal', role: 'form' do
     .form-group
-      label.col-sm-4.control-label CallerID
+      label.col-sm-4.control-label Number
       .col-sm-8
-        input.form-control type='text' name='sip[callerid]' placeholder='Jessica the Sales Manager' autofocus='true' autocomplete='on' ng-model='sip.callerid'
+        input.form-control type='text' name='sip[number]' placeholder='1234' autocomplete='on' autofocus='true' ng-model='sip.number'
+
     .form-group
-      label.col-sm-4.control-label Channel
+      label.col-sm-4.control-label Name
       .col-sm-8
-        select.form-control name='sip[channel]' ng-model='sip.channel'
-          option value='sip' selected='selected' SIP
-          option value='iax' IAX
-          option value='dahdi' DAHDI
+        input.form-control type='text' name='sip[name]' placeholder='Jessica the Sales Manager' autocomplete='on' ng-model='sip.name'
 
     .form-group.has-feedback
       label.col-sm-4.control-label Password
-      | {{ zxcvbn }}
       .col-sm-8
         .input-group
-          input.left-radius.right-radius.form-control.password-field type='{{ !unmasked_password && "password" || "text" }}' name='sip[secret]' placeholder='Password' autocomplete='off' zxcvbn='zxcvbn' class='password-score_{{ zxcvbn.score }}' ng-model='sip.secret'
+          input.left-radius.form-control.password-field type='{{ !unmasked_password && "password" || "text" }}' name='sip[secret]' autocomplete='off' ng-zxcvbn='zxcvbn' class='password-score_{{ zxcvbn.score }}' ng-model='sip.secret'
           a.form-control-feedback.show-password-toggle ng-click='unmasked_password=!unmasked_password'
             span.glyphicon.glyphicon-eye-open.no-shadow
+          span.input-group-btn
+            a.btn.btn-success href='javascript:;' ng-click='generate_secret(sip)'
+              span.glyphicon.glyphicon-refresh
+
         .progress.password-score-bar ng-show='zxcvbn' class='password-score_{{ zxcvbn.score }}'
           .progress-bar role='progressbar' aria-valuenow='{{ zxcvbn.score + 1 }}' aria-valuemin='0' aria-valuemax='5' style='width: {{ (zxcvbn.score + 1) / 5 * 100 }}%;'
         .password-crack-time.tooltip.bottom role='tooltip' ng-show='zxcvbn'
           .tooltip-arrow
           .tooltip-inner Estimated crack time: {{ zxcvbn.crack_time_display }}
-    .form-group
-      .col-sm-8.col-sm-offset-4
-        a.btn.btn-success.btn-xs href='javascript:;' ng-click='generate_secret(".password-field")' Generate password
+      /.col-sm-1
+        /a.btn.btn-success href='javascript:;' ng-click='generate_secret(sip)' Generate
+
+    .form-group.disabled
+      label.col-sm-4.control-label Channel
+      .col-sm-8
+        select.form-control name='sip[channel]' ng-model='sip.channel' disabled='disabled' ng-options='channel for channel in ["sip", "iax", "dahdi"]'
 
     .form-group
-      label.col-sm-4.control-label Phone number
+      label.col-sm-4.control-label DTMF mode
       .col-sm-8
-        input.form-control type='text' name='sip[phone_number]' placeholder='1234' autocomplete='on' ng-model='sip.phone'
+        select.form-control name='sip[dtmfmode]' ng-model='sip.dtmfmode' ng-options='dtmfmode for dtmfmode in ["rfc2833", "inband", "info", "auto"]'
+
+    .form-group
+      label.col-sm-4.control-label Call limit
+      .col-sm-8
+        input.form-control type='text' name='sip[call-limit]' autocomplete='on' ng-model='sip.call-limit'
+
+    .form-group.disabled
+      label.col-sm-4.control-label Call recording
+      .col-sm-8
+        input.form-control disabled='disabled' type='text' name='sip[]' autocomplete='on' ng-model='sip.call_recording'
+
+    .form-group
+      label.col-sm-4.control-label Allow sign in from
+      .col-sm-8
+        input.form-control type='text' name='sip[permit]' placeholder='0.0.0.0/0.0.0.0' autocomplete='on' ng-model='sip.permit'
+
+    .form-group
+      label.col-sm-4.control-label Deny sign in from
+      .col-sm-8
+        input.form-control type='text' name='sip[deny]' placeholder='0.0.0.0/0.0.0.0' autocomplete='on' ng-model='sip.deny'
+
+    .form-group
+      label.col-sm-4.control-label Codecs
+      .col-sm-8
+        input.form-control type='text' name='sip[allow]' placeholder='alaw;ulaw;g729' autocomplete='on' ng-model='sip.allow'
 
     .form-group.disabled
       label.col-sm-4.control-label E-mail
@@ -50,4 +80,4 @@
     .form-group
       a.btn.btn-primary.btn-lg href='javascript:;' ng-click='create()' ng-if='!sip.id' Create
       a.btn.btn-primary.btn-lg href='javascript:;' ng-click='update()' ng-if='sip.id' Save
-      a.btn.btn-lg ng-click='cancel()' Cancel
+      a.btn.btn-lg href='#{sips_path(anchor: '/')}' Cancel

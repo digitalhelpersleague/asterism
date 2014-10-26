@@ -1,3 +1,3 @@
-collection :sips
+object :sip
 
 extends 'sips/base'

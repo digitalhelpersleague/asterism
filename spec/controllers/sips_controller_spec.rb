@@ -20,34 +20,21 @@ require 'rails_helper'
 
 RSpec.describe SipsController, :type => :controller do
 
-  # This should return the minimal set of attributes required to create a valid
-  # Sip. As you add validations to Sip, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # SipsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
+  let(:json_response) { { format: 'json' } }
 
   describe "GET index" do
     it "assigns all sips as @sips" do
-      sip = Sip.create! valid_attributes
-      get :index, {}, valid_session
+      sip = create(:sip)
+      get :index, json_response
       expect(assigns(:sips)).to eq([sip])
     end
   end
 
   describe "GET show" do
     it "assigns the requested sip as @sip" do
-      sip = Sip.create! valid_attributes
-      get :show, {:id => sip.to_param}, valid_session
+      sip = create(:sip)
+      get :show, json_response.merge({ id: sip.id })
       expect(assigns(:sip)).to eq(sip)
     end
   end
@@ -56,31 +43,26 @@ RSpec.describe SipsController, :type => :controller do
     describe "with valid params" do
       it "creates a new Sip" do
         expect {
-          post :create, {:sip => valid_attributes}, valid_session
+          post :create, json_response.merge({sip: attributes_for(:sip)})
         }.to change(Sip, :count).by(1)
       end
 
       it "assigns a newly created sip as @sip" do
-        post :create, {:sip => valid_attributes}, valid_session
+        post :create, json_response.merge({sip: attributes_for(:sip)})
         expect(assigns(:sip)).to be_a(Sip)
         expect(assigns(:sip)).to be_persisted
       end
 
       it "redirects to the created sip" do
-        post :create, {:sip => valid_attributes}, valid_session
+        post :create, json_response.merge({sip: attributes_for(:sip)})
         expect(response).to redirect_to(Sip.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved sip as @sip" do
-        post :create, {:sip => invalid_attributes}, valid_session
+        post :create, json_response.merge({sip: attributes_for(:sip)})
         expect(assigns(:sip)).to be_a_new(Sip)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:sip => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
       end
     end
   end
@@ -88,56 +70,37 @@ RSpec.describe SipsController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        attributes_for(:sip).merge(name: 'new_name')
       }
 
       it "updates the requested sip" do
-        sip = Sip.create! valid_attributes
-        put :update, {:id => sip.to_param, :sip => new_attributes}, valid_session
-        sip.reload
-        skip("Add assertions for updated state")
+        sip = create(:sip)
+        put :update, json_response.merge({id: sip.id, sip: new_attributes})
+        expect change { sip.reload.title }.to('new_name')
       end
 
       it "assigns the requested sip as @sip" do
-        sip = Sip.create! valid_attributes
-        put :update, {:id => sip.to_param, :sip => valid_attributes}, valid_session
+        sip = create(:sip)
+        put :update, json_response.merge({id: sip.id, sip: attributes_for(:sip)})
         expect(assigns(:sip)).to eq(sip)
-      end
-
-      it "redirects to the sip" do
-        sip = Sip.create! valid_attributes
-        put :update, {:id => sip.to_param, :sip => valid_attributes}, valid_session
-        expect(response).to redirect_to(sip)
       end
     end
 
     describe "with invalid params" do
       it "assigns the sip as @sip" do
-        sip = Sip.create! valid_attributes
-        put :update, {:id => sip.to_param, :sip => invalid_attributes}, valid_session
+        sip = create(:sip)
+        put :update, json_response.merge({id: sip.id, sip: attributes_for(:sip)})
         expect(assigns(:sip)).to eq(sip)
-      end
-
-      it "re-renders the 'edit' template" do
-        sip = Sip.create! valid_attributes
-        put :update, {:id => sip.to_param, :sip => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
       end
     end
   end
 
   describe "DELETE destroy" do
     it "destroys the requested sip" do
-      sip = Sip.create! valid_attributes
+      sip = create(:sip)
       expect {
-        delete :destroy, {:id => sip.to_param}, valid_session
+        delete :destroy, json_response.merge({id: sip.id})
       }.to change(Sip, :count).by(-1)
-    end
-
-    it "redirects to the sips list" do
-      sip = Sip.create! valid_attributes
-      delete :destroy, {:id => sip.to_param}, valid_session
-      expect(response).to redirect_to(sips_url)
     end
   end
 

@@ -2,7 +2,7 @@ class Router < Extension
 
   dataset_module do
     def routers
-      filter(appdata: 'ROUTER')
+      filter(app: 'NoOp', appdata: 'ROUTER')
     end
   end
 
@@ -11,6 +11,11 @@ class Router < Extension
   def validate
     super
     validates_unique [:context, :exten, :app, :appdata]
+  end
+
+  def before_validation
+    set_default_data
+    super
   end
 
   def before_destroy
@@ -41,6 +46,15 @@ class Router < Extension
   end
 
   private
+
+  def set_default_data
+    if exten.nil? && priority.nil? && app.nil? && appdata.nil?
+      self.exten = 's'
+      self.priority = 1
+      self.app = 'NoOp'
+      self.appdata = 'ROUTER'
+    end
+  end
 
   def save_routes
     return if !routes_changed?
