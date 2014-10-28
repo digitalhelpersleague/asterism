@@ -18,21 +18,24 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe SipsController, :type => :controller do
+RSpec.describe SipsController, type: :controller do
 
   let(:valid_session) { {} }
   let(:json_response) { { format: 'json' } }
 
   describe "GET index" do
+    render_views
+
     it "assigns all sips as @sips" do
       sip = create(:sip)
       get :index, json_response
-      controller.stub(:sips)
       expect(assigns(:sips)).to eq([sip])
     end
   end
 
   describe "GET show" do
+    render_views
+
     it "assigns the requested sip as @sip" do
       sip = create(:sip)
       get :show, json_response.merge(id: sip.id)
@@ -41,6 +44,8 @@ RSpec.describe SipsController, :type => :controller do
   end
 
   describe "POST create" do
+    render_views
+
     describe "with valid params" do
       it "creates a new Sip" do
         expect {
@@ -59,41 +64,23 @@ RSpec.describe SipsController, :type => :controller do
         expect(assigns(:sip)).to eq(Sip.last)
       end
     end
-
-    describe "with invalid params" do
-      let(:invalid_attributes) { attributes_for(:sip).merge({name: nil, number: nil}) }
-
-      it "assigns a newly created but unsaved sip as @sip" do
-        post :create, json_response.merge({sip: invalid_attributes})
-        expect(assigns(:sip)).to be_a_new(Sip)
-      end
-    end
   end
 
   describe "PUT update" do
-    describe "with valid params" do
-      #let(:new_attributes) {
-        #attributes_for(:sip).merge(name: Faker::Name.name)
-      #}
+    render_views
 
+    describe "with valid params" do
       it "updates the requested sip" do
         sip = create(:sip)
-        sip.name = Faker::Name.name
-        put :update, json_response.merge({id: sip.id, sip: sip.attributes})
-        expect change { sip.reload.title }.to('new_name')
+        new_name = Faker::Name.name
+        put :update, json_response.merge({id: sip.id, sip: { name: new_name }})
+        expect change { sip.reload.title }.to new_name
       end
 
       it "assigns the requested sip as @sip" do
         sip = create(:sip)
-        put :update, json_response.merge({id: sip.id, sip: attributes_for(:sip)})
-        expect(assigns(:sip)).to eq(sip)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the sip as @sip" do
-        sip = create(:sip)
-        put :update, json_response.merge({id: sip.id, sip: attributes_for(:sip)})
+        sip.name = Faker::Name.name
+        put :update, json_response.merge({id: sip.id, sip: sip.to_hash})
         expect(assigns(:sip)).to eq(sip)
       end
     end
@@ -107,5 +94,4 @@ RSpec.describe SipsController, :type => :controller do
       }.to change(Sip, :count).by(-1)
     end
   end
-
 end

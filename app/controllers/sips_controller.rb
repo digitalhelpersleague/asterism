@@ -54,8 +54,8 @@ class SipsController < ApplicationController
   private
 
   def sip_params
-    params.require(:sip).permit(:callerid, :context, :name, :secret,
-                                :dtmfmode, #:channel,
-                                :number, :permit, :deny, :allow, :'call-limit')
+    params.require(:sip)
+      .permit(:callerid, :context, :name, :secret,
+        :dtmfmode, :number, :permit, :deny, :allow, :'call-limit')
   end
 end

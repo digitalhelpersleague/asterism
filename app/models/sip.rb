@@ -12,6 +12,8 @@ class Sip < Sequel::Model(:sip)
 
   def validate
     super
+    validates_presence :name
+    validates_presence :number
     validates_unique :name
     validates_unique :number
   end

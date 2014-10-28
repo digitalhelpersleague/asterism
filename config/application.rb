@@ -35,6 +35,7 @@ module Asterism
     # Sequel configurations
     config.sequel.schema_format = :ruby
     config.sequel.after_connect = proc do
+      Sequel::Model.plugin :active_model
       Sequel::Model.plugin :validation_helpers
     end
   end
