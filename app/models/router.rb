@@ -10,6 +10,10 @@ class Router < Extension
 
   def validate
     super
+    validates_presence :context
+    validates_presence :exten
+    validates_presence :app
+    validates_presence :appdata
     validates_unique [:context, :exten, :app, :appdata]
   end
 
