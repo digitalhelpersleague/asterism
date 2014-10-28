@@ -6,6 +6,9 @@
         $scope.new()
       when '/'
         $scope.cancel()
+      else
+        if match = $scope.location.path().match /\/edit\/(.*)/
+          $scope.edit(parseInt(match[1]))
 
   $scope.routers = Router.all()
 
@@ -13,11 +16,13 @@
     router.$delete().then ->
       $scope.routers = _.without $scope.routers, router
 
-  $scope.edit = (router) ->
+  $scope.edit = (id) ->
+    router = _.select(Router.all(), (r) -> r.id == id)[0]
     $scope.router = angular.copy(router)
 
   $scope.cancel = ->
     $scope.router = undefined
+    $scope.location.path('/') if $scope.location.path() != '/'
 
   $scope.new = ->
     $scope.router = new Router({})

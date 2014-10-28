@@ -1,4 +1,6 @@
-@rism.controller "rism.SipsCtrl", ["$scope", "Sip", "$rootScope", ($scope, Sip, $rootScope) ->
+@rism.controller "rism.SipsCtrl", ["$scope", "Sip", "Router", ($scope, Sip, Router) ->
+
+  $scope.routers = Router.all()
 
   $scope.generate_secret = (sip) ->
     safe_chars = _.shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ_-~@%&*+abcdefghijklmnopqrstuvwxyz0123456789'.split(''))
@@ -12,6 +14,9 @@
         $scope.new()
       when '/'
         $scope.cancel()
+      else
+        if match = $scope.location.path().match /\/edit\/(.*)/
+          $scope.edit(parseInt(match[1]))
 
   $scope.sips = Sip.all()
 
@@ -19,7 +24,8 @@
     sip.$delete().then ->
       $scope.sips = _.without $scope.sips, sip
 
-  $scope.edit = (sip) ->
+  $scope.edit = (id) ->
+    sip = _.select(Sip.all(), (s) -> s.id == id)[0]
     $scope.sip = angular.copy(sip)
 
   $scope.cancel = ->

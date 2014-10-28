@@ -14,7 +14,7 @@ class Router < Extension
   end
 
   def before_validation
-    set_default_data
+    set_default_attributes
     super
   end
 
@@ -47,7 +47,7 @@ class Router < Extension
 
   private
 
-  def set_default_data
+  def set_default_attributes
     if exten.nil? && priority.nil? && app.nil? && appdata.nil?
       self.exten = 's'
       self.priority = 1
@@ -74,7 +74,7 @@ class Router < Extension
 
   def routes_selector
     self.class.unfiltered.where(context: context)
-                         .exclude(app: 'NoOp', appdata: 'ROUTER')
+      .exclude(app: 'NoOp', appdata: 'ROUTER')
   end
 
 end

@@ -27,6 +27,7 @@ RSpec.describe SipsController, :type => :controller do
     it "assigns all sips as @sips" do
       sip = create(:sip)
       get :index, json_response
+      controller.stub(:sips)
       expect(assigns(:sips)).to eq([sip])
     end
   end
@@ -34,7 +35,7 @@ RSpec.describe SipsController, :type => :controller do
   describe "GET show" do
     it "assigns the requested sip as @sip" do
       sip = create(:sip)
-      get :show, json_response.merge({ id: sip.id })
+      get :show, json_response.merge(id: sip.id)
       expect(assigns(:sip)).to eq(sip)
     end
   end
@@ -53,15 +54,17 @@ RSpec.describe SipsController, :type => :controller do
         expect(assigns(:sip)).to be_persisted
       end
 
-      it "redirects to the created sip" do
+      it "responds with newly created sip" do
         post :create, json_response.merge({sip: attributes_for(:sip)})
-        expect(response).to redirect_to(Sip.last)
+        expect(assigns(:sip)).to eq(Sip.last)
       end
     end
 
     describe "with invalid params" do
+      let(:invalid_attributes) { attributes_for(:sip).merge({name: nil, number: nil}) }
+
       it "assigns a newly created but unsaved sip as @sip" do
-        post :create, json_response.merge({sip: attributes_for(:sip)})
+        post :create, json_response.merge({sip: invalid_attributes})
         expect(assigns(:sip)).to be_a_new(Sip)
       end
     end
@@ -69,13 +72,14 @@ RSpec.describe SipsController, :type => :controller do
 
   describe "PUT update" do
     describe "with valid params" do
-      let(:new_attributes) {
-        attributes_for(:sip).merge(name: 'new_name')
-      }
+      #let(:new_attributes) {
+        #attributes_for(:sip).merge(name: Faker::Name.name)
+      #}
 
       it "updates the requested sip" do
         sip = create(:sip)
-        put :update, json_response.merge({id: sip.id, sip: new_attributes})
+        sip.name = Faker::Name.name
+        put :update, json_response.merge({id: sip.id, sip: sip.attributes})
         expect change { sip.reload.title }.to('new_name')
       end
 

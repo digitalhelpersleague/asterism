@@ -33,9 +33,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'rspec-rails'
-gem 'factory_girl_rails'
-
 # gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
@@ -70,6 +67,14 @@ group :development do
   # gem 'rack-mini-profiler'
   # gem 'quiet_assets'
   gem 'letter_opener'
+end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'database_cleaner', require: false
+  gem 'factory_girl_rails'
+  gem 'codeclimate-test-reporter', require: false
+  gem 'faker'
 end
 
 # Use debugger

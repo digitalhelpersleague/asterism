@@ -29,8 +29,6 @@
         .password-crack-time.tooltip.bottom role='tooltip' ng-show='zxcvbn'
           .tooltip-arrow
           .tooltip-inner Estimated crack time: {{ zxcvbn.crack_time_display }}
-      /.col-sm-1
-        /a.btn.btn-success href='javascript:;' ng-click='generate_secret(sip)' Generate
 
     .form-group.disabled
       label.col-sm-4.control-label Channel
@@ -42,10 +40,10 @@
       .col-sm-8
         select.form-control name='sip[dtmfmode]' ng-model='sip.dtmfmode' ng-options='dtmfmode for dtmfmode in ["rfc2833", "inband", "info", "auto"]'
 
-    .form-group
-      label.col-sm-4.control-label Call limit
-      .col-sm-8
-        input.form-control type='text' name='sip[call-limit]' autocomplete='on' ng-model='sip.call-limit'
+    /.form-group
+      /label.col-sm-4.control-label Call limit
+      /.col-sm-8
+        /input.form-control type='text' name='sip[call-limit]' autocomplete='on' ng-model='sip.call-limit'
 
     .form-group.disabled
       label.col-sm-4.control-label Call recording
@@ -67,15 +65,20 @@
       .col-sm-8
         input.form-control type='text' name='sip[allow]' placeholder='alaw;ulaw;g729' autocomplete='on' ng-model='sip.allow'
 
-    .form-group.disabled
-      label.col-sm-4.control-label E-mail
+    .form-group
+      label.col-sm-4.control-label Router
       .col-sm-8
-        input.form-control disabled='disabled' type='text' name='sip[email]' placeholder='jessica@example.com' autocomplete='on' ng-model='sip.email'
+        select.form-control type='text' name='sip[router]' ng-model='sip.router' ng-options='router.context for router in routers'
 
-    .form-group.disabled
-      .col-sm-8.col-sm-offset-4
-        .checkbox
-          label : input disabled='disabled' type='checkbox' Send password to email
+    /.form-group.disabled
+      /label.col-sm-4.control-label E-mail
+      /.col-sm-8
+        /input.form-control disabled='disabled' type='text' name='sip[email]' placeholder='jessica@example.com' autocomplete='on' ng-model='sip.email'
+
+    /.form-group.disabled
+      /.col-sm-8.col-sm-offset-4
+        /.checkbox
+          /label : input disabled='disabled' type='checkbox' Send password to email
 
     .form-group
       a.btn.btn-primary.btn-lg href='javascript:;' ng-click='create()' ng-if='!sip.id' Create
