@@ -25,15 +25,16 @@
       $scope.sips = _.without $scope.sips, sip
 
   $scope.edit = (id) ->
+    clean_variables()
     sip = _.select(Sip.all(), (s) -> s.id == id)[0]
     $scope.sip = angular.copy(sip)
 
   $scope.cancel = ->
-    $scope.sip = undefined
-    $scope.zxcvbn = undefined
+    clean_variables()
     $scope.location.path('/') if $scope.location.path() != '/'
 
   $scope.new = ->
+    clean_variables()
     $scope.sip = new Sip({})
 
   $scope.filter = ->
@@ -59,4 +60,9 @@
       $scope.cancel()
     , (error) ->
       sip.error = error.data.error
+
+  clean_variables = ->
+    $scope.zxcvbn = undefined
+    $scope.sip = undefined
+
 ]
