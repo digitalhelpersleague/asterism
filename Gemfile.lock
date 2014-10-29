@@ -121,7 +121,7 @@ GEM
       i18n (~> 0.5)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
-    gon (5.2.0)
+    gon (5.2.1)
       actionpack (>= 2.3.0)
       json
       multi_json
@@ -285,7 +285,7 @@ GEM
       colorize
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    temple (0.6.9)
+    temple (0.6.10)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
