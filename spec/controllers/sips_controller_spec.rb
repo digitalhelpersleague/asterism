@@ -73,13 +73,13 @@ RSpec.describe SipsController, type: :controller do
       it "updates the requested sip" do
         sip = create(:sip)
         new_name = Faker::Name.name
-        put :update, json_response.merge({id: sip.id, sip: { name: new_name }})
+        put :update, json_response.merge({id: sip.id, sip: { fullname: new_name }})
         expect change { sip.reload.title }.to new_name
       end
 
       it "assigns the requested sip as @sip" do
         sip = create(:sip)
-        sip.name = Faker::Name.name
+        sip.fullname = Faker::Name.name
         put :update, json_response.merge({id: sip.id, sip: sip.to_hash})
         expect(assigns(:sip)).to eq(sip)
       end

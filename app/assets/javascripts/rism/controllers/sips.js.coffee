@@ -42,7 +42,7 @@
       $scope.sips = Sip.all()
       return
     $scope.sips = _.filter Sip.all(), (sip) ->
-      sip.name.toLowerCase().indexOf($scope.q.toLowerCase()) > -1 ||
+      sip.fullname.toLowerCase().indexOf($scope.q.toLowerCase()) > -1 ||
         sip.number.toLowerCase().indexOf($scope.q.toLowerCase()) > -1
     return false
 

@@ -1,1 +1,1 @@
-attributes :id, :number, :name, :context, :dtmfmode, :'call-limit', :deny, :permit, :allow
+attributes :id, :number, :fullname, :context, :dtmfmode, :'call-limit', :deny, :permit, :allow

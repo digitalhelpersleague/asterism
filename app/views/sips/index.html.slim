@@ -8,7 +8,7 @@ div ng-controller='rism.SipsCtrl'
       tbody
         tr ng-repeat='sip in sips track by sip.id'
           td ng-bind-html="sip.number | highlightPhrase:q"
-          td.maximize ng-bind-html="sip.name | highlightPhrase:q"
+          td.maximize ng-bind-html="sip.fullname | highlightPhrase:q"
           td.actions
             = render partial: 'shared/table/default_actions', locals: { object: 'sip' }
     a.shadow href='#{sips_path(anchor: '/new')}'

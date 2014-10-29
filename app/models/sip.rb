@@ -18,6 +18,12 @@ class Sip < Sequel::Model(:sip)
     validates_unique :number
   end
 
+  def number=(num)
+    super
+    # Love this one
+    self.accountcode = self.context = self.name = self.defaultuser = self.cid_number = num
+  end
+
   private
 
   def set_default_attributes

@@ -8,13 +8,13 @@ Sequel.migration do
       column :app, "text", :default=>"", :null=>false
       column :appdata, "text", :default=>"", :null=>false
     end
-
+    
     create_table(:schema_migrations) do
       column :filename, "text", :null=>false
-
+      
       primary_key [:filename]
     end
-
+    
     create_table(:sip) do
       primary_key :id
       column :accountcode, "text"
@@ -83,7 +83,7 @@ Sequel.migration do
       column :regserver, "text"
       column :callbackextension, "text"
       column :number, "text"
-
+      
       index [:name], :unique=>true
     end
   end
