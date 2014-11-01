@@ -10,19 +10,33 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def json_responder
+  def collection_responder(opts = { formats: [:json] })
     respond_to do |format|
-      format.json do
-        if resource.errors.any?
-          return render(json:
-            { error: resource.errors.messages.map do |k, v|
-                "#{ k } #{ v.join(', ') }"
-              end.join('; ')
-            },
-            status: 403
-            )
+      opts[:formats].each do |fmt|
+        format.send(fmt) do
+          opts[:gon] && fmt == :html && gon.rabl(opts[:gon])
         end
-        render :show
+      end
+    end
+  end
+
+  def resource_responder(opts = { formats: [:json] })
+    respond_to do |format|
+      opts[:formats].each do |fmt|
+        format.send(fmt)
+      end
+    end
+  end
+
+  def error_responder(opts = { formats: [:json] })
+    respond_to do |format|
+      opts[:formats].each do |fmt|
+        format.send(fmt) do
+          if fmt == :json
+            render json: { errors: resource.errors.full_messages.to_json },
+                   status: 422
+          end
+        end
       end
     end
   end

@@ -1,36 +1,44 @@
 class RoutersController < ApplicationController
   helper_method :routers, :router
 
-  def show
-    respond_to do |format|
-      format.json
-    end
+  def index
+    collection_responder(
+      formats: [:html, :json],
+      gon: { template: 'app/views/routers/index.rabl', as: :routers }
+    )
   end
 
-  def index
-    @routers = Router.all
-    respond_to do |format|
-      format.json
-      format.html do
-        gon.rabl template: 'app/views/routers/index.rabl', as: :routers
-      end
-    end
+  def show
+    resource_responder
   end
 
   def create
-    @router = Router.create(router_params)
-    json_responder
+    @router = Router.new(router_params)
+    begin
+      resource.save
+      resource_responder
+    rescue
+      error_responder
+    end
   end
 
   def update
-    resource.update(router_params)
-    json_responder
+    begin
+      resource.update(router_params)
+      resource_responder
+    rescue
+      error_responder
+    end
   end
 
   def destroy
-    resource.destroy
-    respond_to do |format|
-      format.json { render json: {} }
+    begin
+      resource.destroy
+      respond_to do |format|
+        format.json { render nothing: true, status: 204 }
+      end
+    rescue
+      error_responder
     end
   end
 
@@ -55,7 +63,11 @@ class RoutersController < ApplicationController
   private
 
   def router_params
-    params.require(:router).permit(:context, :exten, :priority, :app, :appdata, { routes: [:exten, :priority] })
+    params.require(:router)
+      .permit(
+        :context, :exten, :priority, :app, :appdata,
+        { routes: [:exten, :priority] }
+      )
   end
 
 end
