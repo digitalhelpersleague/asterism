@@ -3,7 +3,7 @@
 #= require jquery-ui
 #
 #FIXME: jsplumb have not main js file. need to do something
-#= require jsPlumb/dist/js/jquery.jsPlumb-1.6.4
+#= require jsPlumb/dist/js/jquery.jsPlumb-1.7.1
 #
 #= require bootstrap-sass-official/affix
 #= require bootstrap-sass-official/transition
