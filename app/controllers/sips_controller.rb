@@ -1,44 +1,32 @@
 class SipsController < ApplicationController
+  respond_to :html, :json
   helper_method :sip, :sips
 
   def index
-    collection_responder(
-      formats: [:html, :json],
-      gon: { template: 'app/views/sips/index.rabl', as: :sips }
-    )
+    respond_with sips, gon: { rabl: { as: :sips }}
   end
 
   def show
-    resource_responder
+    respond_with sip, gon: { rabl: { as: :sip }}
   end
 
   def create
     @sip = Sip.new(sip_params)
-    begin
-      resource.save
-      resource_responder
-    rescue
-      error_responder
-    end
+    resource.save(raise_on_failure: false)
+    respond_with sip
   end
 
   def update
-    begin
-      resource.update(sip_params)
-      resource_responder
-    rescue
-      error_responder
-    end
+    resource.set(sip_params)
+    resource.save(raise_on_failure: false)
+    respond_with sip
   end
 
   def destroy
-    begin
-      resource.destroy
-      respond_to do |format|
-        format.json { render nothing: true, status: 204 }
-      end
-    rescue
-      error_responder
+    if resource.destroy
+      render nothing: true, status: 204
+    else
+      respond_with sip
     end
   end
 

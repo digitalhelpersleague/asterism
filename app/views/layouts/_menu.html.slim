@@ -1,7 +1,7 @@
 sidebar.affix role="complementary"
   ul.nav
     li
-      a class="#{menu_active?("routers", "index")}" href=routers_path Routers
+      a class="#{menu_active?("routers")}" href=routers_path Routers
       ul.nav
         li
           a href=routers_path(anchor: '/') List routers
@@ -9,16 +9,21 @@ sidebar.affix role="complementary"
           a href=routers_path(anchor: '/new') New router
 
     li
-      a class="#{menu_active?("sips", "index")}" href=sips_path SIP clients
+      a class="#{menu_active?("sips")}" href=sips_path SIP clients
       ul.nav
         li
           a href=sips_path(anchor: '/') List
         li
           a href=sips_path(anchor: '/new') New client
     li
-      a.disabled href="/under_construction" Music on hold
+      a class="#{menu_active?("ivrs")}" href=ivrs_path IVR
+      ul.nav
+        li
+          a href=ivrs_path(anchor: '/') List
+        li
+          a href=ivrs_path(anchor: '/new') New IVR
     li
-      a.disabled href="/under_construction#transitions" IVR
+      a.disabled href="/under_construction" Music on hold
     li
       a.disabled href="/under_construction#transitions" Phonebook
     li

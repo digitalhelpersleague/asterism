@@ -1,6 +1,6 @@
 RablRails.configure do |config|
   # These are the default
-  # config.cache_templates = true
+  config.cache_templates = false
   config.include_json_root = false
   # config.json_engine = ::Oj
   # config.xml_options = { :dasherize => true, :skip_types => false }

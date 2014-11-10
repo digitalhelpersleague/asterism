@@ -50,3 +50,62 @@ Router.create({
   app: 'GoTo',
   appdata: '${EXTEN},s,1'
 })
+
+Ivr.create({
+  context: 'I0001',
+  exten: 's',
+  priority: '1',
+  app: 'NoOp',
+  appdata: 'IVR'
+})
+Ivr.create({
+  context: 'I0001',
+  exten: 'setvariables',
+  priority: '1',
+  app: 'Set',
+  appdata: 'media=/tmp/asdasd.wav'
+})
+Ivr.create({
+  context: 'I0001',
+  exten: '1',
+  priority: '1',
+  app: 'GoTo',
+  appdata: 'I0002,s,1'
+})
+Ivr.create({
+  context: 'I0002',
+  exten: 's',
+  priority: '1',
+  app: 'NoOp',
+  appdata: 'IVR'
+})
+Ivr.create({
+  context: 'I0002',
+  exten: 'setvariables',
+  priority: '1',
+  app: 'Set',
+  appdata: 'media=/tmp/asdasd2.wav'
+})
+Ivr.create({
+  context: 'I0003',
+  exten: 's',
+  priority: '1',
+  app: 'NoOp',
+  appdata: 'IVR'
+})
+Ivr.create({
+  context: 'I0003',
+  exten: 'setvariables',
+  priority: '1',
+  app: 'Set',
+  appdata: 'media=/tmp/vladimirsky_tsentral.wav'
+})
+Ivr.create({
+  context: 'I0003',
+  exten: '#',
+  priority: '1',
+  app: 'GoTo',
+  appdata: 'I0001,s,1'
+})
+
+

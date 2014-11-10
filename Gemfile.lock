@@ -126,6 +126,9 @@ GEM
       json
       multi_json
       request_store (>= 1.0.5)
+    gon_responder (0.0.1)
+      gon (~> 5.0)
+      responders (~> 2.0)
     hashie (3.3.1)
     hike (1.2.3)
     htmlentities (4.3.2)
@@ -202,6 +205,9 @@ GEM
     rails-assets-bootstrap-sass-official (3.2.0.2)
       rails-assets-jquery (>= 1.9.0)
     rails-assets-jquery (2.1.1)
+    rails-assets-jquery-ui (1.11.2)
+      rails-assets-jquery (>= 1.6)
+    rails-assets-jsPlumb (1.6.4)
     rails-assets-lodash (2.4.1)
     rails-assets-moment (2.8.3)
     rails-deprecated_sanitizer (1.0.3)
@@ -326,6 +332,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   gon
+  gon_responder
   hashie
   jquery-rails
   letter_opener
@@ -344,8 +351,11 @@ DEPENDENCIES
   rails-assets-angular-resource
   rails-assets-angular-sanitize
   rails-assets-bootstrap-sass-official
+  rails-assets-jquery-ui
+  rails-assets-jsPlumb
   rails-assets-lodash
   rails-assets-moment
+  responders
   rspec-rails
   sass-rails (~> 5.0.0.beta1)
   sdoc

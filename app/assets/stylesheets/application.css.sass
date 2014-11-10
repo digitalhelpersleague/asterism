@@ -7,6 +7,9 @@
 @import 'angular'
 @import 'sidebar'
 @import 'passwords'
+@import 'js_plumb'
+@import 'ivrs_map'
+@import 'fileinput'
 
 //@import 'fonts'
 //@import 'sign_in'
@@ -42,6 +45,10 @@ button.navbar-toggle
 .input-group
   width: 100%
 
+.ivrs-map
+  position: relative
+  min-height: 500px
+
 form
   max-width: $form-width
   margin-left: auto
@@ -60,6 +67,12 @@ form
     .form-group
       margin-bottom: 15px
 
+  .medium
+    margin-bottom: 10px
+    .size
+      margin-left: 10px
+      font-size: 0.7em
+
 .tab-content
   text-align: center
 
@@ -68,3 +81,6 @@ form
 
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control
   background-color: #D1D1D1
+
+.form-actions
+  padding-top: 1em

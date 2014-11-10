@@ -1,0 +1,17 @@
+div ng-controller='rism.IvrsCtrl'
+  .ivrs-list ng-hide='ivr' ng-cloak=true
+    h4.section-title IVRs
+    .filter
+      = render partial: 'shared/filter'
+    p ng-if='!ivrs.length' No ivrs found
+    .ivrs-map ng-plumb=true
+      .w ng-repeat='ivr in ivrs' id='{{ ivr.context}}' ng-plumb-targets='ivr.targets'
+        .context
+          | {{ ivr.context }}
+        .media
+          | {{ ivr.media }}
+        .ep
+    a.shadow href='#{ivrs_path(anchor: '/new')}'
+      span.glyphicon.glyphicon-plus-sign
+      |  New ivr
+  = render partial: 'form'

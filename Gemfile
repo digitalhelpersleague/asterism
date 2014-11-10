@@ -10,6 +10,8 @@ gem 'pry-rails'
 gem 'devise'
 gem 'cancan'
 gem 'draper'
+gem 'responders'
+gem 'gon_responder'
 
 gem 'premailer-rails'
 gem 'autoprefixer-rails'
@@ -49,6 +51,8 @@ gem 'rails-assets-angular-bindonce'
 gem 'rails-assets-bootstrap-sass-official'
 gem 'rails-assets-moment'
 gem 'rails-assets-angular-moment'
+gem 'rails-assets-jquery-ui'
+gem 'rails-assets-jsPlumb'
 
 gem 'ng-rails-csrf'
 
@@ -67,10 +71,10 @@ group :development do
   # gem 'rack-mini-profiler'
   # gem 'quiet_assets'
   gem 'letter_opener'
+  gem 'rspec-rails'
 end
 
 group :test do
-  gem 'rspec-rails'
   gem 'database_cleaner', require: false
   gem 'factory_girl_rails'
   gem 'codeclimate-test-reporter', require: false

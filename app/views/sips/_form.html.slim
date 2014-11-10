@@ -68,7 +68,12 @@
     .form-group
       label.col-sm-4.control-label Router
       .col-sm-8
-        select.form-control type='text' name='sip[router]' ng-model='sip.router' ng-options='router.context for router in routers'
+        .
+          select.form-control ng-disabled='!routers.length' type='text' name='sip[router]' ng-model='sip.router' ng-options='router.context for router in routers'
+        .
+          a.shadow href='#{routers_path(anchor: '/new')}' ng-really-message='Do you really want to leave this page? You will lose all unsaved data' ng-really-click='true'
+            span.glyphicon.glyphicon-plus-sign
+            |  Add router
 
     /.form-group.disabled
       /label.col-sm-4.control-label E-mail

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :routers, except: [:new, :edit]
   resources :sips, except: [:new, :edit]
+  resources :ivrs, except: [:new, :edit]
 
   root 'welcome#index'
 

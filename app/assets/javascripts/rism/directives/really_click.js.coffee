@@ -3,5 +3,8 @@
   link: (scope, element, attrs) ->
     element.bind 'click', ->
       message = attrs.ngReallyMessage
-      scope.$apply attrs.ngReallyClick  if message and confirm(message)
+      if message and confirm(message)
+        scope.$apply attrs.ngReallyClick
+      else
+        false
 ]

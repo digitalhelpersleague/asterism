@@ -1,0 +1,27 @@
+.ivr-form ng-show='ivr' ng-cloak=true
+  h4.section-title ng-if='ivr.id'
+    | Edit IVR
+  h4.section-title ng-if='!ivr.id' New IVR
+  = form_tag ivrs_path, method: :put, class: 'form-horizontal', role: 'form' do
+    .form-group
+      label.col-sm-4.control-label Name
+      .col-sm-8
+        input.form-control type='text' name='ivr[context]' autofocus='true' autocomplete="on" ng-model='ivr.context'
+
+    .form-group
+      label.col-sm-4.control-label Media
+      .col-sm-8
+        .medium ng-show='medium.length'
+          | {{ medium[0].name }}
+          span.size
+            | {{ medium[0].size | humanizeSize }}
+        span.btn.btn-primary.btn-lg.fileinput-button
+          span Browse
+          input type="file" name="ivr[medium]" ng-fileread='medium' ng-model='ivr.media'
+          //TODO: dashed border, caption drag here
+          // or drag here
+
+    .form-group.form-actions
+      a.btn.btn-primary.btn-lg href='javascript:;' ng-click='create()' ng-if='!ivr.id' Create
+      a.btn.btn-primary.btn-lg href='javascript:;' ng-click='update()' ng-if='ivr.id' Save
+      a.btn.btn-lg href='#{ivrs_path(anchor: '/')}' Cancel

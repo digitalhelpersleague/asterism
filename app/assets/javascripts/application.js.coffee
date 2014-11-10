@@ -1,5 +1,9 @@
 #= require jquery
 #= require jquery_ujs
+#= require jquery-ui
+#
+#FIXME: jsplumb have not main js file. need to do something
+#= require jsPlumb/dist/js/jquery.jsPlumb-1.6.4
 #
 #= require bootstrap-sass-official/affix
 #= require bootstrap-sass-official/transition
@@ -29,5 +33,39 @@
 @rism.config ($locationProvider) ->
   $locationProvider.html5Mode(false)
 
+window.jsPlumbInstance = null
+
 $ ->
+  window.jsPlumbInstance = jsPlumb.getInstance(
+    Endpoint: [
+      "Dot"
+      {
+        radius: 5
+      }
+    ]
+    HoverPaintStyle:
+      strokeStyle: "#623e68"
+      lineWidth: 2
+
+    ConnectionOverlays: [
+      [
+        "Arrow"
+        {
+          location: 1
+          id: "arrow"
+          length: 14
+          foldback: 0.8
+        }
+      ]
+      [
+        "Label"
+        {
+          label: "GoTo"
+          id: "label"
+          cssClass: "aLabel"
+        }
+      ]
+    ]
+  )
+
   $('.alert-dismissible[role="alert"]').delay(12000).fadeOut('slow')

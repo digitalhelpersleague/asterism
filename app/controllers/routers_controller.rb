@@ -1,44 +1,32 @@
 class RoutersController < ApplicationController
+  respond_to :html, :json
   helper_method :routers, :router
 
   def index
-    collection_responder(
-      formats: [:html, :json],
-      gon: { template: 'app/views/routers/index.rabl', as: :routers }
-    )
+    respond_with routers, gon: { rabl: { as: :routers }}
   end
 
   def show
-    resource_responder
+    respond_with router, gon: { rabl: { as: :router }}
   end
 
   def create
     @router = Router.new(router_params)
-    begin
-      resource.save
-      resource_responder
-    rescue
-      error_responder
-    end
+    resource.save(raise_on_failure: false)
+    respond_with router
   end
 
   def update
-    begin
-      resource.update(router_params)
-      resource_responder
-    rescue
-      error_responder
-    end
+    resource.set(router_params)
+    resource.save(raise_on_failure: false)
+    respond_with router
   end
 
   def destroy
-    begin
-      resource.destroy
-      respond_to do |format|
-        format.json { render nothing: true, status: 204 }
-      end
-    rescue
-      error_responder
+    if resource.destroy
+      render nothing: true, status: 204
+    else
+      respond_with router
     end
   end
 
