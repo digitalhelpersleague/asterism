@@ -8,22 +8,8 @@ class Router < Extension
 
   set_dataset(self.routers)
 
-  def validate
-    super
-    validates_presence :context
-    validates_presence :exten
-    validates_presence :app
-    validates_presence :appdata
-    validates_unique [:context, :exten, :app, :appdata]
-  end
-
-  def before_validation
-    set_default_attributes
-    super
-  end
-
   def before_destroy
-    routes_selector.delete
+    relatives_dataset.delete
     super
   end
 
@@ -33,7 +19,7 @@ class Router < Extension
   end
 
   def routes
-    @routes ||= routes_selector.to_a
+    @routes ||= relatives_dataset.to_a
   end
 
   def routes=(new_routes)
@@ -63,7 +49,7 @@ class Router < Extension
   def save_routes
     return if !routes_changed?
     db.transaction do
-      routes_selector.delete
+      relatives_dataset.delete
       @routes.each do |route|
         self.class.create(route)
       end
@@ -75,10 +61,4 @@ class Router < Extension
   def routes_changed?
     @routes_changed
   end
-
-  def routes_selector
-    self.class.unfiltered.where(context: context)
-      .exclude(app: 'NoOp', appdata: 'ROUTER')
-  end
-
 end

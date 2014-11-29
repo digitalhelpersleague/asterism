@@ -32,4 +32,8 @@ class Sip < Sequel::Model(:sip)
       self.send("#{attribute}=", value)
     end
   end
+
+  def default_variables
+    { tchannel: 'SIP' }
+  end
 end

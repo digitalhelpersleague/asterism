@@ -9,6 +9,12 @@ Sequel.migration do
       column :appdata, "text", :default=>"", :null=>false
     end
     
+    create_table(:media) do
+      primary_key :id
+      column :file, "text"
+      column :original_filename, "text"
+    end
+    
     create_table(:schema_migrations) do
       column :filename, "text", :null=>false
       
@@ -93,5 +99,7 @@ Sequel.migration do
     self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20141011163947_create_extensions.rb')"
     self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20141011164638_create_sips.rb')"
     self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20141026114340_add_number_to_sip.rb')"
+    self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20141117181224_create_media.rb')"
+    self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20141120182807_add_original_filename_to_media.rb')"
   end
 end

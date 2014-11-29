@@ -8,52 +8,29 @@ class Ivr < Extension
 
   set_dataset(self.ivrs)
 
-  def before_validation
-    set_default_attributes
-    super
-  end
-
   def targets
-    data.select{ |x| x.app == 'GoTo' && x.appdata != 'end,s,1' }.map do |target|
+    relatives.select{ |x| x.app == 'GoTo' && x.appdata != 'end,s,1' }.map do |target|
       { context: target.appdata.split(',').first, code: target.exten }
     end
   end
 
-  def media
-    media_object
-    if @media_object
-      @media_object.appdata.match(/media=(.*)/){ |m| return File.basename(m[1]) }
-    end
+  def targets=
+    # TODO: targets assignation
+    # relatives_dataset.find_or_create(...)
+    # TODO: finish with (priority: last, app: 'GoTo', appdata: 'end,s,1')
   end
 
-  def media=(path)
-    media_object
-    @media_object ||= self.class.new(
-      context: context, exten: 'setvariables', priority: variables.size+1, app: 'Set'
-    )
-    @media_object.appdata = "media=#{path}"
-    # puts @media_object.inspect
-    @media_object.save
-    @media_object
+  def medium
+    # FIXME: variables.find_by_key('media').first[:media] rescue nil
+    # TODO: maybe we need Medium model here?
   end
 
-  def variables
-    data.select{ |x| x.exten == 'setvariables' && x.app == 'Set' }
-  end
-
-  def media_object
-    variables.each do |x|
-      @media_object ||= x if x.appdata =~ /media=(.*)/
-    end
-    @media_object
+  def medium=(file)
+    medium = Medium.create(file: file)
+    set_variable!(:medium, medium.file)
   end
 
   private
-
-  def data
-    # Use Extension here to prevent default filter been applied
-    @data ||= Extension.where(context: context).to_a
-  end
 
   def set_default_attributes
     if exten.nil? && priority.nil? && app.nil? && appdata.nil?
@@ -62,5 +39,9 @@ class Ivr < Extension
       self.app = 'NoOp'
       self.appdata = 'IVR'
     end
+  end
+
+  def default_variables
+    { waittimeout: 0 }
   end
 end

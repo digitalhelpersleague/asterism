@@ -51,6 +51,6 @@ class IvrsController < ApplicationController
   private
 
   def ivr_params
-    params.require(:ivr).permit(:context, :media)
+    params.require(:ivr).permit(:context, :medium)
   end
 end

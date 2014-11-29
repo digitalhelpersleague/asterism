@@ -107,5 +107,25 @@ Ivr.create({
   app: 'GoTo',
   appdata: 'I0001,s,1'
 })
-
+Ivr.create({
+  context: 'I0004',
+  exten: 's',
+  priority: '1',
+  app: 'NoOp',
+  appdata: 'IVR'
+})
+Ivr.create({
+  context: 'I0004',
+  exten: 'setvariables',
+  priority: '1',
+  app: 'Set',
+  appdata: 'media=/tmp/support_loop.wav'
+})
+Ivr.create({
+  context: 'I0004',
+  exten: '*',
+  priority: '1',
+  app: 'GoTo',
+  appdata: 'I0004,s,1'
+})
 
