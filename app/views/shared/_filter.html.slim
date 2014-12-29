@@ -4,6 +4,6 @@
       .form-group.has-feedback
         .input-group
           .input-group-addon : span.glyphicon.glyphicon-search.no-shadow
-          input.right-radius.form-control type='text' name='q' placeholder='Filter' autofocus='true' autocomplete="on" ng-model='q' ng-change='filter()' ng-submit='filter()'
+          input.right-radius.form-control type='text' placeholder='Filter' autofocus='true' autocomplete="on" ng-model='q' ng-change='filter()' ng-submit='filter()'
             a.form-control-feedback ng-click='q=undefined; filter()' ng-show='q.length'
               span.glyphicon.glyphicon-remove.no-shadow

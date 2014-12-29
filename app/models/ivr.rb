@@ -14,6 +14,8 @@ class Ivr < Extension
     end
   end
 
+  # TODO: finish transitions with Hangup sub
+
   def targets=
     # TODO: targets assignation
     # relatives_dataset.find_or_create(...)
@@ -27,7 +29,7 @@ class Ivr < Extension
 
   def medium=(file)
     medium = Medium.create(file: file)
-    set_variable!(:medium, medium.file)
+    set_variable(:medium, medium.file)
   end
 
   private

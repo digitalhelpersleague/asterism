@@ -4,13 +4,23 @@ div ng-controller='rism.IvrsCtrl'
     .filter
       = render partial: 'shared/filter'
     p ng-if='!ivrs.length' No ivrs found
-    .ivrs-map ng-plumb=true
-      .w ng-repeat='ivr in ivrs' id='{{ ivr.context}}' ng-plumb-targets='ivr.targets'
-        .context
-          | {{ ivr.context }}
-        .media
-          | {{ ivr.media }}
-        .ep
+    table.table ng-show='ivrs.length'
+      tbody
+        tr ng-repeat='ivr in ivrs track by ivr.id'
+          td.maximize ng-bind-html="ivr.context | highlightPhrase:q"
+          td
+            | {{ ivr.medium }}
+          td.actions
+            = render partial: 'shared/table/default_actions', locals: { object: 'ivr' }
+
+    / TODO: ivr wysiwyg
+    /.ivrs-map ng-plumb=true
+      /.w ng-repeat='ivr in ivrs' id='{{ ivr.context}}' ng-plumb-targets='ivr.targets'
+        /.context
+          /| {{ ivr.context }}
+        /.media
+          /| {{ ivr.media }}
+        /.ep
     a.shadow href='#{ivrs_path(anchor: '/new')}'
       span.glyphicon.glyphicon-plus-sign
       |  New ivr

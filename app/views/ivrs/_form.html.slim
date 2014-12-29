@@ -6,20 +6,39 @@
     .form-group
       label.col-sm-4.control-label Name
       .col-sm-8
-        input.form-control type='text' name='ivr[context]' autofocus='true' autocomplete="on" ng-model='ivr.context'
+        input.form-control type='text' autofocus='true' autocomplete="on" ng-model='ivr.context'
 
     .form-group
       label.col-sm-4.control-label Media
       .col-sm-8
-        .medium ng-show='medium.length'
-          | {{ medium[0].name }}
-          span.size
-            | {{ medium[0].size | humanizeSize }}
+        .medium
+          div ng-show='!ivr.id && ivr.medium.length'
+            | {{ ivr.medium[0].name }}
+            span.size
+              | {{ ivr.medium[0].size | humanizeSize }}
+          div ng-show='ivr.id && ivr.medium'
+            | {{ ivr.medium }}
         span.btn.btn-primary.btn-lg.fileinput-button
           span Browse
-          input type="file" name="ivr[medium]" ng-fileread='medium' ng-model='ivr.media'
+          input type="file" ng-fileread='ivr.medium' ng-model='ivr.medium'
           //TODO: dashed border, caption drag here
           // or drag here
+
+    .form-group
+      .col-sm-4 Transitions
+      .col-sm-8
+        .transitions ng-repeat='transition in ivr.transitions'
+          .form-group
+            .input-group.input-group-sm
+              input.form-control type='text' name='ivr[transition][][exten]' placeholder='_XXXX' autocomplete="on" ng-model='transition.exten'
+              span.input-group-btn
+                a.btn.btn-icon.btn-default.btn-transparent ng-click='ivr.remove_transition(transition)'
+                  span.glyphicon.glyphicon-remove
+        /TODO: select tag with all filterable extensions
+        .form-group
+          a href='javascript:;' ng-click='ivr.add_transition()'
+            span.glyphicon.glyphicon-plus-sign
+            |  Add
 
     .form-group.form-actions
       a.btn.btn-primary.btn-lg href='javascript:;' ng-click='create()' ng-if='!ivr.id' Create

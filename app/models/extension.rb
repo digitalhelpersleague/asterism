@@ -9,18 +9,42 @@ class Extension < Sequel::Model
     super
   end
 
-  def after_create
+  def after_commit
     set_default_variables
+    # TODO: rebuild_relatives_tree
+    # TODO: do each extension changes in one transaction
   end
 
-  def after_destroy # FIXME: after_commit
+  def after_save
+    Sequel.transaction do
+      variables.each do |variable|
+        variable.save if variable.modified?
+      end
+    end
+  end
+
+  def after_destroy
     # TODO: Destroy all extensions with same context
     # TODO: Unlink all extensions which redirects to this context (eg. Routers)
+    Sequel.transaction do
+      # relatives_dataset.delete_all
+    end
   end
+
+  one_to_many :relatives,
+    class: ::Extension,
+    extend: [
+      ::Sequel::FindOrSomethingExtension
+    ],
+    key: :context,
+    primary_key: :context
 
   one_to_many :variables,
     class: ::Extension::Variable,
-    extend: ::Sequel::FindOrCreateVariable,
+    extend: [
+      ::Sequel::FindOrSomethingExtension,
+      ::Sequel::FindOrCreateOrInitializeVariable
+    ],
     key: :context,
     primary_key: :context
 
@@ -33,9 +57,13 @@ class Extension < Sequel::Model
     validates_unique [:context, :exten, :app, :appdata]
   end
 
-  #def variables
-    ##@variables ||= Variable
-  #end
+  def self.find_by_context(context)
+    where('context ILIKE ?', "%#{context}%").where(app: 'NoOp')
+  end
+
+  def variables
+    @variables ||= super
+  end
 
   #def variables=(vars)
     #vars.each do |key, value|
@@ -50,27 +78,20 @@ class Extension < Sequel::Model
 
   private
 
-  def set_variable!(key, value)
-    variables_dataset.find_or_create_variable(key, value)
-    # klass.variables.find_by_key(key) || Variable.find_or_create_by_key()
-    # TODO: initialize or create Variable instance
-  end
+  #def rebuild_relatives_tree
+  #end
 
-  def relatives
-    @relatives ||= relatives_dataset.to_a
-  end
-
-  def relatives_dataset
-    Extension.where(context: context)
-      .exclude(id: id)
+  def set_variable(key, value)
+    # TODO: google how to use variables_dataset while object is not created yet
+    variables_dataset.find_or_initialize_variable(key, value).tap do |variable|
+      # TODO: find and replace variable in @variables with new one
+    end
   end
 
   def set_default_variables
-    # TODO: Sequel.transaction do
-      #default_variables.each do |key, value|
-        #set_variable!(key, value)
-      #end
-    #ena
+    default_variables.each do |key, value|
+      set_variable(key, value)
+    end
   end
 
   def set_default_attributes
