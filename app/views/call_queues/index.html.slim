@@ -1,0 +1,17 @@
+div ng-controller='rism.CallQueuesCtrl'
+  .call_queues-list ng-hide='call_queue' ng-cloak=true
+    h4.section-title Call Queue
+    .filter
+      = render partial: 'shared/filter'
+    p ng-if='!call_queues.length' No Call Queue found
+    table.table ng-show='call_queues.length'
+      tbody
+        tr ng-repeat='call_queue in call_queues track by call_queue.id'
+          td ng-bind-html="call_queue.number | highlightPhrase:q"
+          td.maximize ng-bind-html="call_queue.fullname | highlightPhrase:q"
+          td.actions
+            = render partial: 'shared/table/default_actions', locals: { object: 'call_queue' }
+    a.shadow href='#{call_queues_path(anchor: '/new')}'
+      span.glyphicon.glyphicon-plus-sign
+      |  New Call Queue
+  = render partial: 'form'

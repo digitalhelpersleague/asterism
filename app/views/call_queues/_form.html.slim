@@ -1,0 +1,13 @@
+.call_queue-form ng-show='call_queue' ng-cloak=true
+  h4.section-title ng-if='call_queue.id'
+    | Edit Call Queue
+  h4.section-title ng-if='!call_queue.id' New Call Queue
+  = form_tag call_queues_path, method: :put, class: 'form-horizontal', role: 'form' do
+    .form-group
+      label.col-sm-4.control-label Name
+      .col-sm-8
+        input.form-control type='text' name='call_queue[context]' autofocus='true' autocomplete="on" ng-model='call_queue.context'
+    .form-group
+      a.btn.btn-primary.btn-lg href='javascript:;' ng-click='create()' ng-if='!call_queue.id' Create
+      a.btn.btn-primary.btn-lg href='javascript:;' ng-click='update()' ng-if='call_queue.id' Save
+      a.btn.btn-lg href='#{call_queues_path(anchor: '/')}' Cancel
