@@ -5,29 +5,45 @@
     scope.ngPlumb = window.jsPlumbInstance
 
     $document.ready ->
-      blocks = $(element).children('.w')
+      $blocks = element.children('.w')
 
-      #$(element).height('100%')
-      map_height = $(element).height()
-      map_width = $(element).width()
+      element_width = 140
+      element_height = 40
+      padding = 100
 
-      _.each blocks, (block) ->
-        $(block).css('top', _.random(map_height)+'px')
-        $(block).css('right', _.random(map_width)+'px')
+      rows = 2
+      index = 0
+
+      _.each $blocks, ($block) ->
+        offsetTop = element_height + padding
+        if (index % 3) == 0
+          offsetTop += offsetTop / 2
+
+        offsetLeft = element_width + padding
+
+        top = Math.floor(index / rows) * offsetTop
+        left = index % rows * offsetLeft
+
+        $($block).css('top', top+'px')
+        $($block).css('left', left+'px')
+        index += 1
+
+      #TODO: mosaic by targets count
+
 
       # initialise draggable elements.
-      window.jsPlumbInstance.draggable blocks
+      window.jsPlumbInstance.draggable $blocks
 
       # bind a click listener to each connection; the connection is deleted. you could of course
       # just do this: jsPlumb.bind('click', jsPlumb.detach), but I wanted to make it clear what was
       # happening.
-      window.jsPlumbInstance.bind 'click', (c) ->
-        # c.toggle('')
-        return
+      #window.jsPlumbInstance.bind 'click', (c) ->
+        ## c.toggle('')
+        #return
 
-      window.jsPlumbInstance.bind 'dblclick', (c) ->
-        window.jsPlumbInstance.detach c
-        return
+      #window.jsPlumbInstance.bind 'dblclick', (c) ->
+        #window.jsPlumbInstance.detach c
+        #return
 
       # bind a connection listener. note that the parameter passed to this function contains more than
       # just the new connection - see the documentation for a full list of what is included in 'info'.
@@ -53,7 +69,7 @@
         # jsPlumb and the jQuery version), or if that is not supported,
         # a `parent` (YUI and MooTools). I want to make it perfectly
         # clear that `filter` is better. Use filter when you can.
-        window.jsPlumbInstance.makeSource blocks,
+        window.jsPlumbInstance.makeSource $blocks,
           filter: '.ep'
           anchor: 'Continuous'
           connector: [
@@ -74,7 +90,7 @@
             #return
 
       # initialise all '.w' elements as connection targets.
-      window.jsPlumbInstance.makeTarget blocks,
+      window.jsPlumbInstance.makeTarget $blocks,
         dropOptions:
           hoverClass: 'dragHover'
 
@@ -82,19 +98,7 @@
         allowLoopback: true
         anchor: 'Continuous'
 
-
-      # and finally, make a couple of connections
-      #window.jsPlumbInstance.connect
-        #source: 'opened'
-        #target: 'phone1'
-
-      #window.jsPlumbInstance.connect
-        #source: 'I0001'
-        #target: 'I0002'
-
       #jsPlumb.fire 'jsPlumbDemoLoaded', window.jsPlumbInstance
-
-    #window.jsPlumbInstance.connect
 ]
 
 @rism.directive 'ngPlumbTargets', ['$document', ($document) ->
@@ -108,8 +112,8 @@
           source: element.attr('id')
           target: target.context
 
-        connection.getOverlay('label').setLabel '<div class="ng-scope ng-binding">{{ ivr.context }}</div>'
-        #connection.getOverlay('label').setLabel target.code
+        #connection.getOverlay('label').setLabel '<div class="ng-scope ng-binding">{{ ivr.context }}</div>'
+        connection.getOverlay('label').setLabel target.code
         #TODO: Not angular's stuff
         connection.bind 'click', -> #FIXME: need element.bind here
           #console.log "asdsadsa"
