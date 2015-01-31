@@ -9,6 +9,6 @@ RablRails.configure do |config|
   # config.enable_jsonp_callbacks = false
   # config.replace_nil_values_with_empty_strings = false
   # config.replace_empty_string_values_with_nil = false
-  # config.exclude_nil_values = false
+  config.exclude_nil_values = true
   config.non_collection_classes = [ 'Sequel::Model' ]
 end
