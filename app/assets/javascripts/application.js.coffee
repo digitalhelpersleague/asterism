@@ -3,7 +3,7 @@
 #= require jquery-ui
 #
 #FIXME: jsplumb have not main js file. need to do something
-#= require jsPlumb/dist/js/jquery.jsPlumb-1.7.1
+#= require jsPlumb/dist/js/jquery.jsPlumb-1.7.2
 #
 #= require bootstrap-sass-official/affix
 #= require bootstrap-sass-official/transition
@@ -20,7 +20,6 @@
 #= require angular-resource
 #= require angular-sanitize
 #= require angular-moment
-#= require angular-bindonce
 #
 #= require ng-rails-csrf
 #
@@ -33,39 +32,39 @@
 @rism.config ($locationProvider) ->
   $locationProvider.html5Mode(false)
 
-window.jsPlumbInstance = null
+#window.jsPlumbInstance = null
 
 $ ->
-  window.jsPlumbInstance = jsPlumb.getInstance(
-    Endpoint: [
-      "Dot"
-      {
-        radius: 5
-      }
-    ]
-    HoverPaintStyle:
-      strokeStyle: "#623e68"
-      lineWidth: 2
+  #window.jsPlumbInstance = jsPlumb.getInstance(
+    #Endpoint: [
+      #"Dot"
+      #{
+        #radius: 5
+      #}
+    #]
+    #HoverPaintStyle:
+      #strokeStyle: "#623e68"
+      #lineWidth: 2
 
-    ConnectionOverlays: [
-      [
-        "Arrow"
-        {
-          location: 1
-          id: "arrow"
-          length: 14
-          foldback: 0.8
-        }
-      ]
-      [
-        "Label"
-        {
-          label: "GoTo"
-          id: "label"
-          cssClass: "aLabel"
-        }
-      ]
-    ]
-  )
+    #ConnectionOverlays: [
+      #[
+        #"Arrow"
+        #{
+          #location: 1
+          #id: "arrow"
+          #length: 14
+          #foldback: 0.8
+        #}
+      #]
+      #[
+        #"Label"
+        #{
+          #label: "GoTo"
+          #id: "label"
+          #cssClass: "aLabel"
+        #}
+      #]
+    #]
+  #)
 
   $('.alert-dismissible[role="alert"]').delay(12000).fadeOut('slow')
