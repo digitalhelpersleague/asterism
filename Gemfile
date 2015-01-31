@@ -14,6 +14,7 @@ gem 'cancan'
 gem 'draper'
 gem 'responders'
 gem 'gon_responder'
+gem 'gon', github: 'kressh/gon'
 
 gem 'premailer-rails'
 gem 'autoprefixer-rails'
@@ -22,7 +23,7 @@ gem 'bourbon'
 gem 'slim-rails'
 gem 'sass-rails', '~> 5.0.0.beta1'
 gem 'coffee-rails', '~> 4.0'
-gem 'rabl-rails', github: 'ccocchi/rabl-rails'
+gem 'rabl-rails'
 
 group :assets do
   gem 'execjs', platforms: :ruby
@@ -30,7 +31,6 @@ group :assets do
 end
 
 gem 'hashie'
-gem 'gon'
 gem 'oj'
 
 group :doc do
@@ -81,6 +81,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'codeclimate-test-reporter', require: false
   gem 'faker'
+  gem 'rspec-collection_matchers'
+  gem 'shoulda'
 end
 
 # Use debugger
