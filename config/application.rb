@@ -38,6 +38,7 @@ module Asterism
     config.sequel.after_connect = proc do
       Sequel::Model.plugin :active_model
       Sequel::Model.plugin :validation_helpers
+      #Sequel::Model.plugin :instance_hooks
     end
   end
 end

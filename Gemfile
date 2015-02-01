@@ -3,7 +3,7 @@ source 'https://rails-assets.org'
 
 gem 'rails', '~> 4.2.0.beta2'
 gem 'pg'
-gem 'sequel-rails'
+gem 'sequel-rails', github: 'kressh/sequel-rails'
 gem 'carrierwave'
 gem 'carrierwave-sequel', require: 'carrierwave/sequel'
 
@@ -15,6 +15,8 @@ gem 'draper'
 gem 'responders'
 gem 'gon_responder'
 gem 'gon', github: 'kressh/gon'
+gem 'redispatcher', github: 'rambler-digital-solutions/redispatcher'
+#, path: '../redispatcher'
 
 gem 'premailer-rails'
 gem 'autoprefixer-rails'
