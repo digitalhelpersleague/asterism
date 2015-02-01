@@ -5,12 +5,12 @@
 #FIXME: jsplumb have not main js file. need to do something
 #= require jsPlumb/dist/js/jquery.jsPlumb-1.7.2
 #
-#= require bootstrap-sass-official/affix
-#= require bootstrap-sass-official/transition
-#= require bootstrap-sass-official/alert
-#= require bootstrap-sass-official/collapse
-#= require bootstrap-sass-official/button
-#= require bootstrap-sass-official/modal
+#= require bootstrap-sass-official/bootstrap/affix
+#= require bootstrap-sass-official/bootstrap/transition
+#= require bootstrap-sass-official/bootstrap/alert
+#= require bootstrap-sass-official/bootstrap/collapse
+#= require bootstrap-sass-official/bootstrap/button
+#= require bootstrap-sass-official/bootstrap/modal
 #
 #= require lodash
 #= require moment
