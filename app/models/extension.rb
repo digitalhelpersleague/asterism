@@ -11,22 +11,24 @@ class Extension < Sequel::Model
 
   def after_commit
     set_default_variables
+    db.transaction do
+      variables.each do |variable|
+        variable.save if variable.modified?
+      end
+    end
     # TODO: rebuild_relatives_tree
     # TODO: do each extension changes in one transaction
   end
 
   def after_save
-    Sequel.transaction do
-      variables.each do |variable|
-        variable.save if variable.modified?
-      end
-    end
+    #after_save_hook do
+    #end
   end
 
   def after_destroy
     # TODO: Destroy all extensions with same context
     # TODO: Unlink all extensions which redirects to this context (eg. Routers)
-    Sequel.transaction do
+    db.transaction do
       # relatives_dataset.delete_all
     end
   end
@@ -76,17 +78,28 @@ class Extension < Sequel::Model
 
   # TODO: return from setvariables procedure
 
-  private
 
   #def rebuild_relatives_tree
   #end
 
   def set_variable(key, value)
-    # TODO: google how to use variables_dataset while object is not created yet
-    variables_dataset.find_or_initialize_variable(key, value).tap do |variable|
-      # TODO: find and replace variable in @variables with new one
+    if variable = variables.select{|v| v.send("#{key}?")}.first
+      variable.send("#{key}=", value)
+    else variable = Extension::Variable.new(context: context)
+      variable.send("#{key}=", value)
+      @variables << variable
     end
+
+    # TODO: google how to use variables_dataset while object is not created yet
+    variables.each do |variable|
+      variable.save
+    end
+    #variables_dataset.find_or_initialize_variable(key, value).tap do |variable|
+      ## TODO: find and replace variable in @variables with new one
+    #end
   end
+
+  private
 
   def set_default_variables
     default_variables.each do |key, value|

@@ -17,31 +17,55 @@ class Extension::Variable < Extension
     super
   end
 
-  #def method_missing(args, &block)
-    #puts args
-    #case args
-    #when String
-      #to_hash[args]
-    #when Symbol
-      #to_hash[args.to_s]
-    #else
-      #nil
-    #end
-  #end
-
   def key
-    to_hash && to_hash.keys.first
+    to_hash && to_hash.keys[0]
   end
 
   def value
-    to_hash && to_hash.values.first
+    to_hash && to_hash.values[0]
   end
 
   def to_hash
-    appdata.match(/(.*)=(.*)/){ |m| { m[1] => m[2] } }
+    appdata.match(/(.*)=(.*)/){ |m| { m[1] => unescape_value(m[2]) } }
+  end
+
+  def method_missing(method, *args, &block)
+    method = method.to_s
+    case method[-1..-1]
+    when '?'
+      key == method[0..-2]
+    when '='
+      self.appdata = "#{method[0..-2]}=#{escape_value(args.first)}"
+    else
+      to_hash[method]
+    end
+  end
+
+  def set_variable
   end
 
   private
+
+  def escape_value(val)
+    case val
+    when Integer
+      val
+    when String
+      value_escaped?(val) ? val : "'#{val}'"
+    when Symbol
+      escape_value(val.to_s)
+    else
+      raise RuntimeError, 'value has wrong type'
+    end
+  end
+
+  def unescape_value(val)
+    value_escaped?(val) ? val[1..-2] : val
+  end
+
+  def value_escaped?(val)
+    val[0] == val[-1] && val[0].in?(['"', "'"])
+  end
 
   def set_priority
     return if priority
