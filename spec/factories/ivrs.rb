@@ -3,6 +3,6 @@ FactoryGirl.define do
 
   factory :ivr do
     context { 'I0001'}
-    media { '/tmp/ivrfile.wav' }
+    #medium { '/tmp/ivrfile.wav' }
   end
 end

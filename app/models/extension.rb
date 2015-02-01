@@ -1,4 +1,7 @@
 class Extension < Sequel::Model
+
+  dispatchable
+
   def validate
     super
     validates_presence [:context, :exten, :priority, :app, :appdata]
@@ -18,6 +21,7 @@ class Extension < Sequel::Model
     end
     # TODO: rebuild_relatives_tree
     # TODO: do each extension changes in one transaction
+    dispatch
   end
 
   def after_save

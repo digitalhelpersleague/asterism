@@ -22,6 +22,12 @@ RSpec.describe SipsController, type: :controller do
 
   let(:valid_session) { {} }
   let(:json_response) { { format: 'json' } }
+  #let(:current_editor) { create(:user) }
+
+  #before :each do
+    #allow(controller).to receive(:current_editor).and_return(current_editor)
+    #controller.stub(:authenticate_user!).and_return true
+  #end
 
   describe "GET index" do
     render_views
