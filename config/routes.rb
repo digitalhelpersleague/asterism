@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :ivrs, except: [:new, :edit]
   resources :call_queues, except: [:new, :edit]
 
-  #root redirect: { controller: 'welcome', action: 'index' }
+  # TODO: root redirect: { controller: 'welcome', action: 'index' }
 
   get '/404', to: 'errors#error_404'
   get '/500', to: 'errors#error_500'

@@ -54,11 +54,11 @@ class Router < Extension
         self.class.create(route)
       end
       @routes = nil
-      @routes_changed = nil
+      @routes_changed = false
     end
   end
 
   def routes_changed?
-    @routes_changed
+    @routes_changed == true
   end
 end
